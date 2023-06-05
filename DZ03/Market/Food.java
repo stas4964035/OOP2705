@@ -4,34 +4,47 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Food extends Product{
-    private String prodDate;
-    private int shelfLife;
-    private int 
+public class Food extends Product {
+    private Date prodDate;
+    private long shelfLong;
+    private Date shelfEnd;
 
-    public Food(String name, int price, String prodDate, int shelfLife) {
+    /***
+     *
+     * @param name
+     * @param price
+     * @param prodDate
+     * @param shelfLong
+     */
+    public Food(String name, int price, String prodDate, long shelfLong) {
         super(name, price);
-        this.prodDate = prodDate;
-        this.shelfLife = shelfLife;
+        SimpleDateFormat parser = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            this.prodDate = parser.parse(prodDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        this.shelfLong = shelfLong;
+        this.shelfEnd = new Date(this.prodDate.getTime() + this.shelfLong * (24 * 60 * 60 * 1000));
     }
 
     public String getProdDate() {
-        return prodDate;
+        return new SimpleDateFormat("dd.MM.yyyy").format(this.prodDate);
     }
 
-    public int getShelfLife() {
-        return shelfLife;
+    public long getShelfLife() {
+        return shelfLong;
+    }
+
+    public String getShelfEnd() {
+        return new SimpleDateFormat("dd.MM.yyyy").format(this.shelfEnd);
     }
 
     @Override
     public String toString() {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        try {
-            int daysLeft = (int) ((now.getTime() - format.parse(this.getProdDate()).getTime()) / (24 * 60 * 60 * 1000));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return super.getName() + "(годен до: " + this.
+        return super.getName() + " " + super.getPrice() + "(годен до: " + this.getShelfEnd() + ")" +
+                (this.shelfEnd.before(new Date()) ? "ЗАКОНЧИЛСЯ СРОК ГОДНОСТИ!" : "");
     }
 }
