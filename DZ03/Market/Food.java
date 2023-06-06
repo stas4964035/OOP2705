@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Food extends Product {
     private Date prodDate;
-    private long shelfLong;
+    private int shelfLong;
     private Date shelfEnd;
 
     /***
@@ -16,7 +16,7 @@ public class Food extends Product {
      * @param prodDate
      * @param shelfLong
      */
-    public Food(String name, int price, String prodDate, long shelfLong) {
+    public Food(String name, int price, String prodDate, int shelfLong) {
         super(name, price);
         SimpleDateFormat parser = new SimpleDateFormat("dd.MM.yyyy");
         try {
@@ -25,14 +25,15 @@ public class Food extends Product {
             throw new RuntimeException(e);
         }
         this.shelfLong = shelfLong;
-        this.shelfEnd = new Date(this.prodDate.getTime() + this.shelfLong * (24 * 60 * 60 * 1000));
+        ToMs<Integer> days = d -> d  * (24 * 60 * 60 * 1000);
+        this.shelfEnd = new Date(this.prodDate.getTime() + days.getMS(this.shelfLong));
     }
-
+    public long getProdDateMs(){return this.prodDate.getTime();}
     public String getProdDate() {
         return new SimpleDateFormat("dd.MM.yyyy").format(this.prodDate);
     }
 
-    public long getShelfLife() {
+    public int getShelfLife() {
         return shelfLong;
     }
 
@@ -47,4 +48,6 @@ public class Food extends Product {
         return super.getName() + " " + super.getPrice() + "(годен до: " + this.getShelfEnd() + ")" +
                 (this.shelfEnd.before(new Date()) ? "ЗАКОНЧИЛСЯ СРОК ГОДНОСТИ!" : "");
     }
+
+
 }

@@ -1,6 +1,6 @@
 package DZ03.Market;
 
-abstract class Product {
+abstract class Product implements Comparable<Product>{
     private String name;
     private int price;
 
@@ -19,5 +19,9 @@ abstract class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+    @Override
+    public int compareTo(Product o) {
+        return this.getName().compareTo(o.getName());
     }
 }
