@@ -1,12 +1,15 @@
 package DZ04.task_3;
 
+import java.util.Comparator;
+
 public class task_3 {
     public static void main(String[] args) {
+        System.out.println(getMax(42, 10));
+        System.out.println(getMax(4.2, 1.0));
+        System.out.println(getMax("first", "second"));
 
     }
-    <T> Object getMax(T o1, T o2){
-        if(o1.compareTo(o2)){
-            
-        }
+    public static <T extends Comparable<T>>T getMax(T a, T b){
+        return a.compareTo(b) >= 0 ? a : b;
     }
 }
