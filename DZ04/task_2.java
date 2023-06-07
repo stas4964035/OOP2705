@@ -1,4 +1,4 @@
-package DZ04.task_2;
+package DZ04;
 
 import java.lang.reflect.Array;
 

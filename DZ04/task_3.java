@@ -1,4 +1,4 @@
-package DZ04.task_3;
+package DZ04;
 
 import java.util.Comparator;
 

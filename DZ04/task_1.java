@@ -1,4 +1,4 @@
-package DZ04.task_1;
+package DZ04;
 
 public class task_1 {
     public static void main(String[] args) {
