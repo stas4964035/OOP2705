@@ -1,4 +1,4 @@
-package Sem06.S;
+package Sem06.SO;
 
 public class SendMessage {
     public void send(String message, int userID){

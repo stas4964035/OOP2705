@@ -1,4 +1,4 @@
-package Sem06.S;
+package Sem06.SO;
 
 public interface SendService {
     public void sendMessage(String message);
