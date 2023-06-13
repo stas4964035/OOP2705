@@ -1,28 +1,25 @@
 package DZ05.Calc;
 
-public class CalcModel {
-    private double x, y;
+import DZ05.Calc.Operations.CalcOperation;
+import DZ05.Calc.Validation.CalcOperationValidator;
+
+public class CalcModel<T extends Number> {
+    private T x, y;
     private char operation;
     private double result;
-    int validation;
+    int validation = 10;
+    CalcOperationValidator validator = new CalcOperationValidator();
+    CalcOperation calcOperation = new CalcOperation();
 
 
     public void goCalc(){
-        switch (operation) {
-            case '+' -> result = x + y;
-            case '-' -> result = x - y;
-            case '*' -> result = x * y;
-            case '/' -> result = x / y;
+        validation = validator.validate(this.getX(), this.getY(), this.operation);
+        if(validation == 0) {
+            result = calcOperation.goOperation(this.getX(), this.getY(), this.operation);
         }
+
     }
-    public int validate(){
-        if (operation == '/' && (x == 0 || y == 0)) {
-            return validation = 1;
-        }else if("+-*/".indexOf(operation) == -1){
-            return validation = 2;
-        }
-        return 0;
-    }
+
 
     public double getResult() {
         return result;
@@ -32,11 +29,20 @@ public class CalcModel {
         this.operation = operation;
     }
 
-    public void setX(double x) {
+
+    public void setX(T x) {
         this.x = x;
     }
 
-    public void setY(double y) {
+    public void setY(T y) {
         this.y = y;
+    }
+
+    public double getX() {
+        return x.doubleValue();
+    }
+
+    public double getY() {
+        return y.doubleValue();
     }
 }
